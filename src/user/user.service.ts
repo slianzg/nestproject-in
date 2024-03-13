@@ -75,13 +75,12 @@ export class UserService {
     };
   }
 
-  //이메일로 user찾기
+  //이메일로 user찾기(이메일 중복 체크)+이 함수는 jwt전략에서도 쓰임
   async findByEmail(email: string) {
-    //이 함수는 jwt전략에서 쓰임
     return await this.userRepository.findOneBy({ email });
   }
 
-  //닉네임으로 user찾기
+  //닉네임으로 user찾기(닉네임 중복체크)
   async findByNickname(nickname: string) {
     return await this.userRepository.findOneBy({ nickname });
   }

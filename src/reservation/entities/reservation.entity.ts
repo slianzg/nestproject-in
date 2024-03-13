@@ -2,6 +2,7 @@ import { Show } from 'src/show/entities/show.entity';
 import { User } from 'src/user/entities/user.entity';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -28,4 +29,7 @@ export class Reservation {
 
   @Column({ type: 'int', name: 'userId' })
   userId: number;
+
+  @CreateDateColumn({ name: 'reservationDate' })
+  reservationDate: Date;
 }

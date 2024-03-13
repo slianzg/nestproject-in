@@ -30,7 +30,7 @@ export class ShowService {
     return show;
   }
 
-  //공연 목록 조회(전체조회/공연명별로 나눠서 조회)
+  //공연 목록 조회
   async findAll(): Promise<Show[]> {
     return await this.showRepository.find({
       select: [

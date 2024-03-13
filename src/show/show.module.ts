@@ -8,5 +8,6 @@ import { Show } from './entities/show.entity';
   imports: [TypeOrmModule.forFeature([Show])],
   controllers: [ShowController],
   providers: [ShowService],
+  exports: [ShowService],
 })
 export class ShowModule {}

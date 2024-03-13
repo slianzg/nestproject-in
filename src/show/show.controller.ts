@@ -3,11 +3,8 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
-  Delete,
   UseGuards,
-  Search,
   Query,
 } from '@nestjs/common';
 import { ShowService } from './show.service';
@@ -40,13 +37,13 @@ export class ShowController {
     return await this.showService.findMany(title);
   }
 
-  //공연 목록 조회(전체조회/공연명별로 나눠서 조회)
+  //공연 목록 전체 조회
   @Get('showList')
   async getShowList() {
     return await this.showService.findAll();
   }
 
-  //공연 상세 조회(공연정보와, 현재 예매 가능한지 여부를 반환)
+  //공연 상세 조회
   @Get(':showId') //path params로 받는 경우 웬만하면 가장 아래에 놓기
   async getShowDetail(@Param('showId') showId: number) {
     return await this.showService.findOne(showId);

@@ -1,10 +1,8 @@
 import {
-  IsDate,
   IsDateString,
   IsEnum,
   IsInt,
   IsNotEmpty,
-  IsNumber,
   IsOptional,
   IsString,
   IsUrl,
