@@ -29,6 +29,7 @@ export class UserController {
   @UseGuards(AuthGuard('jwt'))
   @Get('mypage')
   async getUserInfo(@UserInfo() user: User) {
-    return { user };
+    const point = await this.userService.getUserPoint(user.userId);
+    return { user, point };
   }
 }

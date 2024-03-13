@@ -11,6 +11,7 @@ import { JwtService } from '@nestjs/jwt';
 import { compare, hash } from 'bcrypt';
 import { LoginDto } from './dto/log-in.dto';
 import _ from 'lodash';
+import { PointService } from 'src/point/point.service';
 
 @Injectable()
 export class UserService {
@@ -18,6 +19,7 @@ export class UserService {
     @InjectRepository(User)
     private userRepository: Repository<User>,
     private readonly jwtService: JwtService,
+    private readonly pointService: PointService,
   ) {}
 
   //회원가입
@@ -36,22 +38,19 @@ export class UserService {
       );
     }
     const hashedPassword = await hash(user.password, 10); //암호화
-    if (user.role) {
-      await this.userRepository.save({
-        email: user.email,
-        password: hashedPassword,
-        name: user.name,
-        nickname: user.nickname,
-        role: user.role,
-      });
-    } else {
-      await this.userRepository.save({
-        email: user.email,
-        password: hashedPassword,
-        name: user.name,
-        nickname: user.nickname,
-      });
-    }
+    await this.userRepository.save({
+      email: user.email,
+      password: hashedPassword,
+      name: user.name,
+      nickname: user.nickname,
+      role: user.role,
+    });
+
+    const registerdUser = await this.userRepository.findOneBy({
+      email: user.email,
+    });
+
+    await this.pointService.createUserPoint(registerdUser.userId);
   }
 
   //로그인
@@ -85,5 +84,10 @@ export class UserService {
   //닉네임으로 user찾기
   async findByNickname(nickname: string) {
     return await this.userRepository.findOneBy({ nickname });
+  }
+
+  //내 정보 볼 때 포인트가져오기
+  async getUserPoint(userId: number) {
+    return await this.pointService.getMyPoint(userId);
   }
 }

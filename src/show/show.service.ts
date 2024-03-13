@@ -15,17 +15,16 @@ export class ShowService {
 
   //공연 등록
   async create(createShowDto: CreateShowDto, userId: number) {
-    const showInfo = createShowDto;
     const show = await this.showRepository.save({
-      title: showInfo.title,
-      showImage: showInfo.showImage,
-      artists: showInfo.artists,
-      location: showInfo.location,
-      description: showInfo.description,
-      price: showInfo.price,
-      showDate: showInfo.showDate,
-      category: showInfo.category,
-      seat: showInfo.seat,
+      title: createShowDto.title,
+      showImage: createShowDto.showImage,
+      artists: createShowDto.artists,
+      location: createShowDto.location,
+      description: createShowDto.description,
+      price: createShowDto.price,
+      showDate: createShowDto.showDate,
+      category: createShowDto.category,
+      seat: createShowDto.seat,
       adminId: +userId,
     });
     return show;
@@ -58,7 +57,7 @@ export class ShowService {
       .where('reservations.showid = :id', { id: showId })
       .getCount();
 
-    const today = new Date(); //
+    const today = new Date();
 
     const year = today.getFullYear();
     const month = ('0' + (today.getMonth() + 1)).slice(-2);
