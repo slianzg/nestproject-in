@@ -40,7 +40,6 @@ export class ShowService {
         'showImage',
         'category',
         'location',
-        'price',
         'showDate',
       ],
       order: { title: 'ASC', showId: 'DESC' },
@@ -87,7 +86,6 @@ export class ShowService {
         showImage: true,
         category: true,
         location: true,
-        price: true,
         showDate: true,
       },
     });

@@ -34,7 +34,7 @@ export class ShowController {
     return await this.showService.create(createShowDto, userId);
   }
 
-  //공연 검색(필터링)왜인지 가장 상단에 올려줘야 제대로 작동함
+  //공연 검색(필터링)
   @Get('search')
   async getFilterdShowList(@Query('title') title: string) {
     return await this.showService.findMany(title);
@@ -47,7 +47,7 @@ export class ShowController {
   }
 
   //공연 상세 조회(공연정보와, 현재 예매 가능한지 여부를 반환)
-  @Get(':showId')
+  @Get(':showId') //path params로 받는 경우 웬만하면 가장 아래에 놓기
   async getShowDetail(@Param('showId') showId: number) {
     return await this.showService.findOne(showId);
   }

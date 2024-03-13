@@ -17,7 +17,7 @@ export class Show {
   @PrimaryGeneratedColumn()
   showId: number;
 
-  @Column({ type: 'varchar', select: false, nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   title: string;
 
   @Column({ type: 'varchar', nullable: true })
