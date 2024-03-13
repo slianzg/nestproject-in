@@ -14,7 +14,6 @@ export class PointService {
   async createUserPoint(userId: number) {
     await this.pointRepository.save({
       userId: +userId,
-      point: 1000000,
     });
   }
 
@@ -26,7 +25,7 @@ export class PointService {
     });
   }
 
-  //포인트 조회
+  //포인트 조회(마이페이지 조회에서)
   async getMyPoint(userId: number) {
     const pointInfo = await this.pointRepository.findOneBy({ userId });
     return pointInfo.point;
