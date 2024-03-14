@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateShowDto } from './dto/create-show.dto';
 import { Show } from './entities/show.entity';
 import { Repository, DataSource, Like } from 'typeorm';
@@ -50,6 +50,10 @@ export class ShowService {
     const showInfo = await this.showRepository.findOne({
       where: { showId },
     });
+
+    if (!showInfo) {
+      throw new NotFoundException('해당 공연 정보를 찾을 수 없습니다.');
+    }
 
     const count = await this.dataSource
       .getRepository(Reservation)
