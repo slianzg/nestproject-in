@@ -20,7 +20,8 @@ export class PointService {
   //예매시 포인트 차감(예매할때쓰임)
   async subtractPoint(userId: number, price: number) {
     const userPoint = await this.pointRepository.findOneBy({ userId });
-    await this.pointRepository.update(userId, {
+    console.log(userPoint);
+    await this.pointRepository.update(userPoint.pointId, {
       point: userPoint.point - price,
     });
   }
