@@ -5,11 +5,14 @@ import { LoginDto } from './dto/log-in.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from './entities/user.entity';
 import { UserInfo } from 'src/utils/userInfo.decorator';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('USER')
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @ApiOperation({ summary: '회원가입' })
   //회원가입
   @Post('register')
   async resister(@Body() createUserDto: CreateUserDto, @Res() res) {
@@ -17,6 +20,7 @@ export class UserController {
     res.send('회원가입되었습니다. 로그인해주세요!');
   }
 
+  @ApiOperation({ summary: '로그인' })
   //로그인
   @Post('login')
   async login(@Body() loginDto: LoginDto, @Res() res) {
@@ -25,6 +29,7 @@ export class UserController {
     res.send('로그인되었습니다.');
   }
 
+  @ApiOperation({ summary: '(로그인시)내 정보 확인' })
   //(로그인시)내 정보 확인
   @UseGuards(AuthGuard('jwt'))
   @Get('mypage')
